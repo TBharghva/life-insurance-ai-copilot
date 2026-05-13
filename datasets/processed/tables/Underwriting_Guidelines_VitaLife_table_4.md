@@ -1,0 +1,5 @@
+| Medical Condition                                 | Classificatio n        | Extra Premium Loading   | Additional Requirements                                  | Notes                                     |
+|---------------------------------------------------|------------------------|-------------------------|----------------------------------------------------------|-------------------------------------------|
+| Occupation - skilled manual (driver, electrician) | Class I                | +25%                    | Occupation declaration form                              | Moderate occupational loading             |
+| Occupation - mining / oil & gas / armed forces    | Class II-III           | +50% to +75%            | Employer certificate; occupational risk declaration      | Armed forces: war exclusion endorsement   |
+| Occupation - pilot (commercial)                   | Substandard - Class II | +50%                    | DGCA medical certificate; flying hours; type of aircraft | Helicopter and aerobatics: higher loading |

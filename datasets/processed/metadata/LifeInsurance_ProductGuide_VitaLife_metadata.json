@@ -1,0 +1,11 @@
+{
+  "source_document": "LifeInsurance_ProductGuide_VitaLife.pdf",
+  "markdown_file": "datasets\\processed\\markdown\\LifeInsurance_ProductGuide_VitaLife.md",
+  "tables": [
+    {
+      "table_id": 1,
+      "source_document": "LifeInsurance_ProductGuide_VitaLife.pdf",
+      "table_file": "datasets\\processed\\tables\\LifeInsurance_ProductGuide_VitaLife_table_1.md"
+    }
+  ]
+}

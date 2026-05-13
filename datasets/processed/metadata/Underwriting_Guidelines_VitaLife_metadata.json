@@ -1,0 +1,36 @@
+{
+  "source_document": "Underwriting_Guidelines_VitaLife.pdf",
+  "markdown_file": "datasets\\processed\\markdown\\Underwriting_Guidelines_VitaLife.md",
+  "tables": [
+    {
+      "table_id": 1,
+      "source_document": "Underwriting_Guidelines_VitaLife.pdf",
+      "table_file": "datasets\\processed\\tables\\Underwriting_Guidelines_VitaLife_table_1.md"
+    },
+    {
+      "table_id": 2,
+      "source_document": "Underwriting_Guidelines_VitaLife.pdf",
+      "table_file": "datasets\\processed\\tables\\Underwriting_Guidelines_VitaLife_table_2.md"
+    },
+    {
+      "table_id": 3,
+      "source_document": "Underwriting_Guidelines_VitaLife.pdf",
+      "table_file": "datasets\\processed\\tables\\Underwriting_Guidelines_VitaLife_table_3.md"
+    },
+    {
+      "table_id": 4,
+      "source_document": "Underwriting_Guidelines_VitaLife.pdf",
+      "table_file": "datasets\\processed\\tables\\Underwriting_Guidelines_VitaLife_table_4.md"
+    },
+    {
+      "table_id": 5,
+      "source_document": "Underwriting_Guidelines_VitaLife.pdf",
+      "table_file": "datasets\\processed\\tables\\Underwriting_Guidelines_VitaLife_table_5.md"
+    },
+    {
+      "table_id": 6,
+      "source_document": "Underwriting_Guidelines_VitaLife.pdf",
+      "table_file": "datasets\\processed\\tables\\Underwriting_Guidelines_VitaLife_table_6.md"
+    }
+  ]
+}

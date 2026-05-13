@@ -1,0 +1,4 @@
+| Document                                                   | Purpose                          | Mandatory ?                      | Acceptable Formats            |
+|------------------------------------------------------------|----------------------------------|----------------------------------|-------------------------------|
+| Employer certificate (for occupation-related applications) | Occupational risk assessment     | If high-risk occupation          | Letter on employer letterhead |
+| Source of funds declaration                                | Anti-money laundering compliance | If single premium ‡ INR 10 lakhs | Completed Form SOF-01         |

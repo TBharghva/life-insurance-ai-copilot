@@ -1,0 +1,9 @@
+| Stage   | Activity                                         | Responsibility                               | Timeline             | Status Trigger                                             |
+|---------|--------------------------------------------------|----------------------------------------------|----------------------|------------------------------------------------------------|
+| Stage 1 | Proposal form submission + first premium payment | Applicant / Agent                            | Day 0                | Application received                                       |
+| Stage 2 | Document verification and completeness check     | VitaLife New Business Team                   | Day 1-2              | Documents accepted / deficiency notice sent                |
+| Stage 3 | Medical examination (if required)                | VitaLife empanelled lab / applicant's doctor | Day 2-7              | Medical reports submitted to VitaLife                      |
+| Stage 4 | Underwriting assessment                          | VitaLife Underwriting Department             | Day 3-10             | Underwriting decision: approve / load / postpone / decline |
+| Stage 5 | Policy document generation and dispatch          | VitaLife Policy Admin Team                   | Day 10-15            | Policy document despatched (courier / digital)             |
+| Stage 6 | Policy document receipt by policyholder          | Courier / Digital delivery                   | Day 12-18            | Free look period begins on receipt                         |
+| Stage 7 | Free look period                                 | Policyholder                                 | 15 days from receipt | Policyholder can review and return if unsatisfied          |

@@ -1,0 +1,11 @@
+{
+  "source_document": "Riders_AddOnBenefits_VitaLife.pdf",
+  "markdown_file": "datasets\\processed\\markdown\\Riders_AddOnBenefits_VitaLife.md",
+  "tables": [
+    {
+      "table_id": 1,
+      "source_document": "Riders_AddOnBenefits_VitaLife.pdf",
+      "table_file": "datasets\\processed\\tables\\Riders_AddOnBenefits_VitaLife_table_1.md"
+    }
+  ]
+}
