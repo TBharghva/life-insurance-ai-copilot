@@ -5,6 +5,8 @@ from langchain_core.documents import Document
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 
+import os
+
 
 # ---------------------------------------------------
 # INPUT FILES
@@ -105,7 +107,8 @@ print("\nInitializing embedding model...")
 # text-embedding-3-small
 #
 embeddings = OpenAIEmbeddings(
-    model="text-embedding-3-small"
+    model="text-embedding-3-small",
+    api_key=os.getenv('OPENAI_API_KEY')
 )
 
 

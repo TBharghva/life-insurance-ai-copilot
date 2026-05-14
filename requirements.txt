@@ -5,3 +5,7 @@ python-dotenv
 docling 
 markdownify
 tabulate
+langchain-openai
+fastapi
+uvicorn
+requests

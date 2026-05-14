@@ -8,5 +8,5 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 ```
 [Issue with interpreter. run the following]
-PATH/TO/python.exe -m pip install streamlit issue with interpreter
+venv/Scripts/python.exe -m pip install streamlit issue with interpreter
 ```

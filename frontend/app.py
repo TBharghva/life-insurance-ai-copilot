@@ -5,7 +5,9 @@ from components.sidebar import render_sidebar
 
 # TODO: Replace with real API call to FastAPI backend
 # Mock response is currently in services/api_service.py
+# from services.api_service import send_message
 from services.api_service import send_message
+
 
 # ---------------------------------------------------
 # PAGE CONFIGURATION
@@ -46,6 +48,10 @@ if "trace" not in st.session_state:
 if "active_node" not in st.session_state:
     st.session_state.active_node = "intent_router"
 
+# Store loading state
+if "is_loading" not in st.session_state:
+    st.session_state.is_loading = False
+
 
 # ---------------------------------------------------
 # APP HEADER
@@ -84,8 +90,18 @@ for message in st.session_state.messages:
             st.markdown("### Citations")
 
             for citation in message["citations"]:
+                source_document = citation.get(
+                    "source_document",
+                    "Unknown Document"
+                )
+
+                section = citation.get(
+                    "section",
+                    "Unknown Section"
+                )
+
                 st.write(
-                    f"- {citation.get('document')} | Page {citation.get('page')}"
+                    f"- {source_document} | Section: {section}"
                 )
 
 
@@ -93,7 +109,10 @@ for message in st.session_state.messages:
 # USER INPUT
 # ---------------------------------------------------
 
-user_input = st.chat_input("Ask about underwriting, policies, beneficiaries, or issuance...")
+user_input = st.chat_input(
+    "Ask about underwriting, policies, beneficiaries, or issuance...",
+    disabled=st.session_state.is_loading
+)
 
 
 # ---------------------------------------------------
@@ -116,11 +135,14 @@ if user_input:
         st.markdown(user_input)
 
 
-    # Call backend API
-    backend_response = send_message(
-        st.session_state.session_id,
-        user_input
-    )
+    with st.spinner(
+        "Generating AI underwriting response..."
+    ):
+        # Call backend API
+        backend_response = send_message(
+            st.session_state.session_id,
+            user_input
+        )
 
 
     # Extract response data
@@ -163,6 +185,17 @@ if user_input:
             st.markdown("### Citations")
 
             for citation in citations:
+
+                source_document = citation.get(
+                    "source_document",
+                    "Unknown Document"
+                )
+
+                section = citation.get(
+                    "section",
+                    "Unknown Section"
+                )
+
                 st.write(
-                    f"- {citation.get('document')} | Page {citation.get('page')}"
+                    f"- {source_document} | Section: {section}"
                 )

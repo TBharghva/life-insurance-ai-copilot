@@ -46,3 +46,39 @@ def render_sidebar(state_data, node_name):
             st.error("Human Review Required")
         else:
             st.success("No Human Review Needed")
+
+        st.divider()
+
+        # ---------------------------------------------------
+        # CLEAR CHAT BUTTON
+        # ---------------------------------------------------
+
+        if st.button(
+            "Clear Chat",
+            use_container_width=True
+        ):
+
+            # Clear chat history
+            st.session_state.messages = []
+
+            # Clear workflow state
+            st.session_state.state = {}
+
+            # Clear graph trace
+            st.session_state.trace = []
+
+            # Reset active node
+            st.session_state.active_node = (
+                "intent_router"
+            )
+
+            # Optional: new session ID
+            # Creates fresh conversation
+            import uuid
+
+            st.session_state.session_id = str(
+                uuid.uuid4()
+            )
+
+            # Refresh UI immediately
+            st.rerun()
