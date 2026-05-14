@@ -6,7 +6,7 @@ from components.sidebar import render_sidebar
 # TODO: Replace with real API call to FastAPI backend
 # Mock response is currently in services/api_service.py
 # from services.api_service import send_message
-from services.api_service import send_message
+from services.api_service import ( stream_message)
 
 
 # ---------------------------------------------------
@@ -51,6 +51,9 @@ if "active_node" not in st.session_state:
 # Store loading state
 if "is_loading" not in st.session_state:
     st.session_state.is_loading = False
+
+if "pending_user_input" not in st.session_state:
+    st.session_state.pending_user_input = None
 
 
 # ---------------------------------------------------
@@ -119,83 +122,110 @@ user_input = st.chat_input(
 # HANDLE USER MESSAGE
 # ---------------------------------------------------
 
-if user_input:
+if user_input and not st.session_state.is_loading:
 
-    # Add user message to UI history
-    st.session_state.messages.append(
-        {
-            "role": "user",
-            "content": user_input
-        }
-    )
+    st.session_state.pending_user_input = user_input
 
+    st.session_state.is_loading = True
 
-    # Display user message immediately
-    with st.chat_message("user"):
-        st.markdown(user_input)
+    st.rerun()
 
+# ---------------------------------------------------
+# PROCESS PENDING INPUT
+# ---------------------------------------------------
 
-    with st.spinner(
-        "Generating AI underwriting response..."
-    ):
-        # Call backend API
-        backend_response = send_message(
-            st.session_state.session_id,
-            user_input
+if (
+    st.session_state.is_loading
+    and st.session_state.pending_user_input
+):
+    try:
+
+        user_input = st.session_state.pending_user_input
+
+        # Add user message to history
+        st.session_state.messages.append(
+            {
+                "role": "user",
+                "content": user_input
+            }
         )
 
+        # Show user message
+        with st.chat_message("user"):
+            st.markdown(user_input)
 
-    # Extract response data
-    ai_response = backend_response.get("response", "No response")
+        # Assistant response
+        with st.chat_message("assistant"):
 
-    citations = backend_response.get("citations", [])
+            response_placeholder = st.empty()
 
-    node_executed = backend_response.get("node_executed", "unknown")
+            full_response = ""
 
-    state_data = backend_response.get("state", {})
+            citations = []
 
-    trace_data = backend_response.get("trace", [])
+            with st.spinner(
+                "Generating AI underwriting response..."
+            ):
 
+                for chunk in stream_message(
+                    st.session_state.session_id,
+                    user_input
+                ):
 
-    # Update session state
-    st.session_state.state = state_data
-    st.session_state.trace = trace_data
-    st.session_state.active_node = node_executed
+                    # Final metadata payload
+                    if chunk.get("done"):
 
+                        citations = chunk.get(
+                            "citations",
+                            []
+                        )
 
-    # Store assistant response
-    st.session_state.messages.append(
-        {
-            "role": "assistant",
-            "content": ai_response,
-            "citations": citations
-        }
-    )
+                        break
 
+                    token = chunk.get("token", "")
 
-    # Display assistant response
-    with st.chat_message("assistant"):
+                    full_response += token
 
-        st.markdown(ai_response)
+                    response_placeholder.markdown(
+                        full_response + "▌"
+                    )
 
+            # Display citations
+            if citations:
 
-        # Show citations
-        if citations:
+                st.markdown("### Sources")
 
-            st.markdown("### Citations")
+                for citation in citations:
 
-            for citation in citations:
+                    source_document = citation.get(
+                        "source_document",
+                        "Unknown Document"
+                    )
 
-                source_document = citation.get(
-                    "source_document",
-                    "Unknown Document"
-                )
+                    section = citation.get(
+                        "section",
+                        "Unknown Section"
+                    )
 
-                section = citation.get(
-                    "section",
-                    "Unknown Section"
-                )
+                    st.caption(
+                        f"📄 {source_document} — {section}"
+                    )
+        
+        response_placeholder.markdown(full_response)
 
-                st.write(
-                    f"- {source_document} | Section: {section}"
-                )
+        # Store assistant message
+        st.session_state.messages.append(
+            {
+                "role": "assistant",
+                "content": full_response,
+                "citations": citations
+            }
+        )
+
+    finally:
+
+        st.session_state.is_loading = False
+
+        st.session_state.pending_user_input = None
+
+        st.rerun()

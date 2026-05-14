@@ -16,7 +16,8 @@ load_dotenv()
 
 llm = ChatOpenAI(
     model="gpt-4.1-mini",
-    temperature=0.2
+    temperature=0.2,
+    streaming=True
 )
 
 
@@ -33,3 +34,17 @@ def generate_response(prompt: str):
     response = llm.invoke(prompt)
 
     return response.content
+
+# ---------------------------------------------------
+# STREAM RESPONSE
+# ---------------------------------------------------
+
+def stream_response(prompt: str):
+    """
+    Stream LLM tokens.
+    """
+
+    for chunk in llm.stream(prompt):
+
+        if chunk.content:
+            yield chunk.content

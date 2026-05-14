@@ -15,37 +15,37 @@ def render_sidebar(state_data, node_name):
     with st.sidebar:
         st.title("Life Insurance AI")
 
-        st.divider()
+        # st.divider()
 
-        st.subheader("Workflow Status")
+        # st.subheader("Workflow Status")
 
-        st.write(f"Active Node: {node_name}")
+        # st.write(f"Active Node: {node_name}")
 
-        st.divider()
+        # st.divider()
 
-        st.subheader("Applicant State")
+        # st.subheader("Applicant State")
 
-        applicant_data = state_data.get("applicant_data", {})
+        # applicant_data = state_data.get("applicant_data", {})
 
-        if applicant_data:
-            st.json(applicant_data)
-        else:
-            st.info("No applicant data collected yet")
+        # if applicant_data:
+        #     st.json(applicant_data)
+        # else:
+        #     st.info("No applicant data collected yet")
 
-        st.divider()
+        # st.divider()
 
-        risk_data = state_data.get("risk_score", {})
+        # risk_data = state_data.get("risk_score", {})
 
-        if risk_data:
-            st.subheader("Risk Score")
-            st.json(risk_data)
+        # if risk_data:
+        #     st.subheader("Risk Score")
+        #     st.json(risk_data)
 
-        human_review = state_data.get("human_review_required", False)
+        # human_review = state_data.get("human_review_required", False)
 
-        if human_review:
-            st.error("Human Review Required")
-        else:
-            st.success("No Human Review Needed")
+        # if human_review:
+        #     st.error("Human Review Required")
+        # else:
+        #     st.success("No Human Review Needed")
 
         st.divider()
 

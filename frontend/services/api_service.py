@@ -1,4 +1,6 @@
 import requests
+import json
+
 
 
 # ---------------------------------------------------
@@ -30,3 +32,27 @@ def send_message(
     )
 
     return response.json()
+
+def stream_message(
+    session_id: str,
+    message: str
+):
+
+    payload = {
+        "session_id": session_id,
+        "message": message
+    }
+
+    response = requests.post(
+        f"{BASE_URL}/chat/stream",
+        json=payload,
+        stream=True
+    )
+
+    for line in response.iter_lines():
+
+        if line:
+
+            yield json.loads(
+                line.decode("utf-8")
+            )

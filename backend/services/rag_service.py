@@ -1,6 +1,6 @@
 from backend.services.retrieval_service import retrieve_context
 
-from backend.services.llm_service import generate_response
+from backend.services.llm_service import ( stream_response, generate_response )
 
 
 # ---------------------------------------------------
@@ -122,5 +122,71 @@ def generate_rag_response(user_query: str):
 
     return {
         "answer": answer,
+        "citations": citations
+    }
+
+def stream_rag_response(user_query: str):
+
+    retrieval_results = retrieve_context(
+        user_query
+    )
+
+    text_results = retrieval_results[
+        "text_results"
+    ]
+
+    table_results = retrieval_results[
+        "table_results"
+    ]
+
+
+    text_context = format_documents(
+        text_results
+    )
+
+    table_context = format_documents(
+        table_results
+    )
+
+
+    prompt = f"""
+        You are an AI insurance copilot.
+
+        Answer ONLY using provided context.
+
+        TEXT CONTEXT:
+        {text_context}
+
+        TABLE CONTEXT:
+        {table_context}
+
+        USER QUESTION:
+        {user_query}
+
+        FINAL ANSWER:
+    """
+
+
+    citations = []
+
+    for document in text_results:
+
+        citations.append(
+            {
+                "source_document":
+                    document.metadata.get(
+                        "source_document"
+                    ),
+
+                "section":
+                    document.metadata.get(
+                        "section"
+                    )
+            }
+        )
+
+
+    return {
+        "stream": stream_response(prompt),
         "citations": citations
     }
